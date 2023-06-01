@@ -1,0 +1,17 @@
+# Ignore all top level files and folders
+/*
+
+# Git
+!.gitignore
+!.gitattributes
+
+
+!src/
+!.eslintrc.cjs
+!.prettierrc.cjs
+!package.json
+!README.MD
+!pnpm-lock.yaml
+!ava.config.js
+
+!tsconfig.json
