@@ -1,4 +1,4 @@
-export const matches = [
+export const matches: unknown[] = [
   {
     sport: "soccer",
     participant1: "Chelsea",
