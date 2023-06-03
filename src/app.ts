@@ -13,15 +13,16 @@ for (const match of matches) {
      * it is crucial to validate it before passing it to the functions.
      */
     const validatedMatch = matchSchema.parse(match);
-    const name = parser.makeEventName(validatedMatch);
-    const score = parser.formatScore(validatedMatch);
     matchesParsed.push({
-      name,
-      score,
+      name: parser.makeEventName(validatedMatch),
+      score: parser.formatScore(validatedMatch),
     });
   } catch (error) {
-    if (error instanceof InvalidSportError) continue;
+    /**
+     * I normally don't silence validation errors, but provide them to end client.
+     */
     if (error instanceof ZodError) continue;
+    if (error instanceof InvalidSportError) continue;
     throw error;
   }
 }
