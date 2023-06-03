@@ -2,6 +2,7 @@ import test from "ava";
 
 import { InvalidSportError } from "./errors/invalid-sport.error.js";
 import { EventParser } from "./event-parser.js";
+import { InvalidScoreError } from "./errors/invalid-score.error.js";
 
 test("EventParser - makeEventName", (t) => {
   const eventParser = new EventParser();
@@ -40,7 +41,7 @@ test("EventParser - formatScore - simple", (t) => {
   t.is(eventParser.formatScore(event), "2:1");
 });
 
-test("EventParser - formatScore - regex", (t) => {
+test("EventParser - formatScore - sets", (t) => {
   const eventParser = new EventParser();
   const event = {
     sport: "volleyball",
@@ -77,5 +78,53 @@ test("EventParser - formatScore - unknown sport", (t) => {
     eventParser.formatScore(event);
   } catch (error) {
     t.deepEqual(error, new InvalidSportError());
+  }
+});
+
+test("EventParser - formatScore - simple - invalid score", (t) => {
+  const eventParser = new EventParser();
+  const event = {
+    sport: "soccer",
+    participant1: "Chelsea",
+    participant2: "Arsenal",
+    score: [
+      ["9:7", "2:1"],
+      ["5:3", "9:9"],
+    ],
+  };
+  try {
+    eventParser.formatScore(event);
+  } catch (error) {
+    t.deepEqual(error, new InvalidScoreError(event));
+  }
+});
+
+test("EventParser - formatScore - array - invalid score", (t) => {
+  const eventParser = new EventParser();
+  const event = {
+    sport: "basketball",
+    participant1: "GKS Tychy",
+    participant2: "GKS Katowice",
+    score: "1:1",
+  };
+  try {
+    eventParser.formatScore(event);
+  } catch (error) {
+    t.deepEqual(error, new InvalidScoreError(event));
+  }
+});
+
+test("EventParser - formatScore - sets - invalid score", (t) => {
+  const eventParser = new EventParser();
+  const event = {
+    sport: "volleyball",
+    participant1: "Germany",
+    participant2: "France",
+    score: "3:0",
+  };
+  try {
+    eventParser.formatScore(event);
+  } catch (error) {
+    t.deepEqual(error, new InvalidScoreError(event));
   }
 });
