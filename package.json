@@ -10,7 +10,8 @@
     "compile": "tsc",
     "lint": "eslint --fix --max-warnings 0 --ext .ts ./src/**",
     "test:unit:watch": "nodemon --exec 'pnpm run test:unit' -w ./src --ext ts",
-    "test:unit": "NODE_OPTIONS='--loader=ts-node/esm --no-warnings' ava"
+    "test:unit": "NODE_OPTIONS='--loader=ts-node/esm --no-warnings' ava",
+    "test:unit:cov": "NODE_OPTIONS='--loader=ts-node/esm --no-warnings' c8 ava"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +21,7 @@
     "@typescript-eslint/eslint-plugin": "^5.59.8",
     "@typescript-eslint/parser": "^5.59.8",
     "ava": "^5.3.0",
+    "c8": "^7.14.0",
     "eslint": "^8.41.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-import-resolver-typescript": "^3.5.5",
